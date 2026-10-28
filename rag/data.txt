@@ -1,0 +1,21 @@
+COMPANY OVERVIEW
+Nova Labs is a fictional technology company founded in 2019 in Lisbon, Portugal. The company builds open-source tools that help small teams use artificial intelligence without needing a large budget. Nova Labs has 42 employees and works fully remotely.
+CONTACT
+Email: hello@novalabs.example
+Website: www.novalabs.example
+Founder and CEO: Maria Santos
+PRODUCTS
+Nova Search: a semantic search engine for company documents. It turns documents into embeddings and finds the most relevant passages for a question. It supports PDF, text, and web page sources.
+Nova Agent: a framework for building AI agents that choose between tools such as Wikipedia, research paper search, and private document search. It runs on local models, so no paid API key is needed.
+Nova Notes: a note-taking app that summarizes meetings automatically and extracts action items for each team member.
+TECHNOLOGY STACK
+The main language is Python. Vector search uses Chroma and FAISS. Embeddings come from the HuggingFace model all-MiniLM-L6-v2. Language models run locally through Ollama, mainly Qwen 2.5. The backend uses FastAPI and the web interface uses Streamlit.
+MILESTONES
+2019: Nova Labs is founded by Maria Santos with a team of three people.
+2021: Nova Search is released and reaches 10,000 downloads in its first year.
+2023: Nova Agent launches and wins the Open Source Innovation Award.
+2025: Nova Notes is released and the team grows to 42 employees.
+TEAM
+Maria Santos is the founder and CEO. Daniel Kim is the head of engineering and leads the Nova Search team. Aisha Khan is the lead researcher for Nova Agent. Lucas Meyer manages customer support and documentation.
+COMPANY VALUES
+Nova Labs believes in open source, privacy first design, and clear documentation. All products can run on a user's own computer, so private data never has to leave it.

@@ -1,0 +1,23 @@
+#used in simple rag project
+langchain_openai
+langchain_core
+python-dotenv
+streamlit
+langchain_community
+langserve
+fastapi
+uvicorn
+sse_starlette
+bs4
+pypdf
+langchain-text-splitters
+langchain-huggingface
+sentence-transformers
+chromadb 
+langchain-ollama
+#used in agents project
+langchain
+wikipedia
+arxiv<3
+langchainhub
+faiss-cpu

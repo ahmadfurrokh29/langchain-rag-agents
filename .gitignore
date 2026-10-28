@@ -1,0 +1,12 @@
+# secrets
+.env
+
+# python and jupyter junk
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+venv/
+vnev/
+
+# generated vector databases
+chroma_db/
