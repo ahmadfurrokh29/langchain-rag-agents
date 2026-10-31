@@ -164,6 +164,13 @@ Wikipedia rejects requests that do not say who is sending them. Without a User-A
 ## LangChain Hub
 A place to share ready-made prompts. `Client().pull_prompt("owner/name", dangerously_pull_public_prompt=True)` downloads one. The flag is required because a prompt from a stranger could contain unwanted instructions, so you confirm that you trust it. A prompt is only text, so it works with any model, including Ollama.
 
+## Agent and AgentExecutor
+- `create_openai_tools_agent(llm, tools, prompt)` builds the agent: the LLM decides which tool to call. The name says "openai", but it works with any model that supports tool calling, such as Qwen in Ollama.
+- `AgentExecutor` runs the loop: ask the LLM, run the chosen tool, give the result back, and repeat until there is an answer.
+- The prompt has an `agent_scratchpad` slot where the tool calls and results are kept between steps.
+- `tools` must be a flat list. A list inside a list gives `ValueError: Unsupported function`.
+- In LangChain 1.x these older classes live in `langchain_classic.agents`.
+  
 ## Dense vs Sparse Vectors
 - **Dense vector**: a list of numbers (384 here) made by an embedding model. It captures *meaning*, so "car" and "automobile" are close.
 - **Sparse vector**: mostly zeros, with a score only for the words that appear in the text. It captures *exact words*, so it is good for names, IDs and codes.
@@ -177,9 +184,4 @@ Dense and sparse search run together, and their scores are combined. The `alpha`
 ## Pinecone
 A cloud vector database. An **index** is one collection of vectors. `ServerlessSpec` sets the cloud and region (here AWS `us-east-1`). The index `dimension` must match the embedding model, and `dotproduct` is required for hybrid search.
 
-## Agent and AgentExecutor
-- `create_openai_tools_agent(llm, tools, prompt)` builds the agent: the LLM decides which tool to call. The name says "openai", but it works with any model that supports tool calling, such as Qwen in Ollama.
-- `AgentExecutor` runs the loop: ask the LLM, run the chosen tool, give the result back, and repeat until there is an answer.
-- The prompt has an `agent_scratchpad` slot where the tool calls and results are kept between steps.
-- `tools` must be a flat list. A list inside a list gives `ValueError: Unsupported function`.
-- In LangChain 1.x these older classes live in `langchain_classic.agents`.
+
