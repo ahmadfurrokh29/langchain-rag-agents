@@ -34,7 +34,44 @@ What we built, step by step:
 
 Example: "Who was Alan Turing?" uses Wikipedia, and "Find the arxiv paper 1706.03762" uses arXiv.
 
-### 3. Other folders
+### 3. Hybrid Search RAG (`rag/hybridsearch_rag.ipynb`)
+Search that uses **two methods at once**, so it finds text by *meaning* and by *exact words*. It stores everything in Pinecone, a cloud vector database.
+
+Why hybrid? A search by meaning alone is weak on exact things like codes, IDs, names and years. A keyword search alone is weak when people use different words for the same idea. Together they cover both.
+
+| Question | Best search |
+|---|---|
+| "My app keeps closing by itself" | Meaning (dense) |
+| "Error ERR_4021" | Keywords (sparse) |
+| "Why does ERR_4021 happen when I log in?" | Both (hybrid) |
+
+Steps:
+1. **Create a Pinecone index.** Use `dimension=384` (it must match the embedding model) and `metric="dotproduct"` (the only metric that allows sparse vectors).
+2. **Set up dense search** with the free HuggingFace model `all-MiniLM-L6-v2`. It turns text into 384 numbers that capture meaning.
+3. **Set up sparse search** with `BM25Encoder` from `pinecone-text`. It scores keywords, and rare words get more weight. `fit()` teaches it the words of your own texts, and `dump()`/`load()` save and reload what it learned.
+4. **Connect to the index** with `pc.Index(index_name)`.
+5. **Build the retriever** with `PineconeHybridSearchRetriever(embeddings=..., sparse_encoder=..., index=...)`.
+6. **Add texts** with `retriever.add_texts([...])`. For each text it makes a dense and a sparse vector and uploads both.
+7. **Search** with `retriever.invoke("question")`. It makes both vectors for the question and returns the best matching texts.
+
+Small example:
+```python
+retriever.add_texts([
+    "In 2023, I visited Paris",
+    "In 2022, I visited New York",
+    "In 2021, I visited New Orleans",
+])
+retriever.invoke("which city i visited in 2021")
+# the top result is "In 2021, I visited New Orleans"
+```
+The year "2021" matches by keyword, and "which city I visited" matches by meaning. Meaning alone cannot tell the three sentences apart, because they look almost the same to the model.
+
+Notes:
+- This notebook needs a Pinecone API key. Put it in `.env` as `Pinecone_API_KEY=`. The free plan is enough.
+- The retriever only **finds** texts. To get a written answer, add the same prompt and LLM chain as in Simple RAG.
+- For real documents, load and split them into chunks first (like in Simple RAG), and fit the BM25 encoder on those chunks.
+
+### 4. Other folders
 `api/` and `chatbot/` are empty for now. They are placeholders for later work.
 
 ## Setup
@@ -50,6 +87,8 @@ python -m pip install -r requirements.txt
 - In notebooks, run cells from the top after any kernel restart.
 - The agents notebook needs `arxiv` older than version 3 (`python -m pip install "arxiv<3"`), because the newest version breaks the LangChain arXiv tool.
 - The agents notebook also uses `faiss-cpu`, `langchain`, and `langchainhub`.
+- The hybrid search notebook uses `pinecone<7`, `pinecone-text`, and `pinecone-notebooks`. Keep `pinecone` below version 7, because `PineconeHybridSearchRetriever` fails with newer versions.
+- `pinecone-text` needs the `mmh3` package, which has no ready-made build for Python 3.14 and must be compiled. If the install fails with "Microsoft Visual C++ 14.0 or greater is required", run `python -m pip install --only-binary=:all: mmh3` first, then `python -m pip install --no-deps pinecone-text nltk types-requests`.
 
 ---
 
@@ -124,6 +163,19 @@ Wikipedia rejects requests that do not say who is sending them. Without a User-A
 
 ## LangChain Hub
 A place to share ready-made prompts. `Client().pull_prompt("owner/name", dangerously_pull_public_prompt=True)` downloads one. The flag is required because a prompt from a stranger could contain unwanted instructions, so you confirm that you trust it. A prompt is only text, so it works with any model, including Ollama.
+
+## Dense vs Sparse Vectors
+- **Dense vector**: a list of numbers (384 here) made by an embedding model. It captures *meaning*, so "car" and "automobile" are close.
+- **Sparse vector**: mostly zeros, with a score only for the words that appear in the text. It captures *exact words*, so it is good for names, IDs and codes.
+
+## BM25
+A keyword scoring method (an improved TF-IDF). A word gets a higher score when it is rare across your texts and appears in the text. Common words like "the" and "I" get a low score. `BM25Encoder` in `pinecone-text` runs on your computer and costs nothing.
+
+## Hybrid Search
+Dense and sparse search run together, and their scores are combined. The `alpha` setting picks the balance: `alpha=1` is meaning only, `alpha=0` is keywords only, and `0.5` is an even mix. Use hybrid when questions can contain both ideas and exact terms.
+
+## Pinecone
+A cloud vector database. An **index** is one collection of vectors. `ServerlessSpec` sets the cloud and region (here AWS `us-east-1`). The index `dimension` must match the embedding model, and `dotproduct` is required for hybrid search.
 
 ## Agent and AgentExecutor
 - `create_openai_tools_agent(llm, tools, prompt)` builds the agent: the LLM decides which tool to call. The name says "openai", but it works with any model that supports tool calling, such as Qwen in Ollama.

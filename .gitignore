@@ -8,5 +8,6 @@ __pycache__/
 venv/
 vnev/
 
-# generated vector databases
+# generated vector databases and encoder files
 chroma_db/
+bm25_values.json

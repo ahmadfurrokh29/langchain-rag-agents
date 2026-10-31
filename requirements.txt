@@ -21,3 +21,7 @@ wikipedia
 arxiv<3
 langchainhub
 faiss-cpu
+#used in Hybrid RAG project
+pinecone<7
+pinecone-text
+pinecone-notebooks
