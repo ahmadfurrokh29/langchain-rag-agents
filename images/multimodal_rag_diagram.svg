@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 702" width="1000" height="702" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#111827"/></marker></defs>
+<rect width="1000" height="702" fill="#ffffff"/>
+<text x="500.0" y="32" font-size="22" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">Multimodal RAG: text + images, step by step</text>
+<rect x="10" y="50" width="980" height="402" rx="16" fill="#f5f9ff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="28" y="78" font-size="14" font-weight="bold" fill="#1d4ed8" text-anchor="start" font-style="normal">PART 1 · INDEXING  (done once)</text>
+<rect x="28" y="156" width="140" height="100" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+<circle cx="28" cy="156" r="13" fill="#2563eb"/>
+<text x="28" y="161" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">1</text>
+<text x="98.0" y="183" font-size="13.5" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">PDF document</text>
+<text x="98.0" y="203" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">text + images + charts</text>
+<text x="98.0" y="236" font-size="10.5" font-weight="normal" fill="#1d4ed8" text-anchor="middle" font-style="italic">Nova_Labs_Annual_</text>
+<text x="98.0" y="249" font-size="10.5" font-weight="normal" fill="#1d4ed8" text-anchor="middle" font-style="italic">Report_2025.pdf</text>
+<rect x="192" y="156" width="140" height="100" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+<circle cx="192" cy="156" r="13" fill="#2563eb"/>
+<text x="192" y="161" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">2</text>
+<text x="262.0" y="183" font-size="13.5" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">Extract</text>
+<text x="262.0" y="203" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">pull out the text and</text>
+<text x="262.0" y="218" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">the images of each page</text>
+<text x="262.0" y="236" font-size="10.5" font-weight="normal" fill="#1d4ed8" text-anchor="middle" font-style="italic">PyMuPDF (fitz)</text>
+<rect x="356" y="96" width="140" height="100" rx="10" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+<circle cx="356" cy="96" r="13" fill="#4f46e5"/>
+<text x="356" y="101" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">3a</text>
+<text x="426.0" y="123" font-size="13.5" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">Split the text</text>
+<text x="426.0" y="143" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">cut each page into</text>
+<text x="426.0" y="158" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">small chunks</text>
+<text x="426.0" y="176" font-size="10.5" font-weight="normal" fill="#4338ca" text-anchor="middle" font-style="italic">RecursiveCharacter</text>
+<text x="426.0" y="189" font-size="10.5" font-weight="normal" fill="#4338ca" text-anchor="middle" font-style="italic">TextSplitter 500 / 100</text>
+<rect x="356" y="216" width="140" height="100" rx="10" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+<circle cx="356" cy="216" r="13" fill="#db2777"/>
+<text x="356" y="221" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">3b</text>
+<text x="426.0" y="243" font-size="13.5" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">Open each image</text>
+<text x="426.0" y="263" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">convert it to a</text>
+<text x="426.0" y="278" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">PIL image (RGB)</text>
+<text x="426.0" y="296" font-size="10.5" font-weight="normal" fill="#be185d" text-anchor="middle" font-style="italic">doc.extract_image()</text>
+<rect x="520" y="96" width="140" height="100" rx="10" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+<circle cx="520" cy="96" r="13" fill="#4f46e5"/>
+<text x="520" y="101" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">4a</text>
+<text x="590.0" y="123" font-size="13.5" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">CLIP text vector</text>
+<text x="590.0" y="143" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">512 numbers per chunk</text>
+<text x="590.0" y="158" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">(reads max 77 tokens)</text>
+<text x="590.0" y="176" font-size="10.5" font-weight="normal" fill="#4338ca" text-anchor="middle" font-style="italic">embed_text()</text>
+<rect x="520" y="216" width="140" height="100" rx="10" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+<circle cx="520" cy="216" r="13" fill="#db2777"/>
+<text x="520" y="221" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">4b</text>
+<text x="590.0" y="243" font-size="13.5" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">CLIP image vector</text>
+<text x="590.0" y="263" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">512 numbers per image</text>
+<text x="590.0" y="278" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">same CLIP model</text>
+<text x="590.0" y="296" font-size="10.5" font-weight="normal" fill="#be185d" text-anchor="middle" font-style="italic">embed_image()</text>
+<rect x="520" y="336" width="140" height="100" rx="10" fill="#ffffff" stroke="#db2777" stroke-width="2"/>
+<circle cx="520" cy="336" r="13" fill="#db2777"/>
+<text x="520" y="341" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">4c</text>
+<text x="590.0" y="363" font-size="13.5" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">Base64 copy</text>
+<text x="590.0" y="383" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">the image as text, to</text>
+<text x="590.0" y="398" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">send to the LLM later</text>
+<text x="590.0" y="416" font-size="10.5" font-weight="normal" fill="#be185d" text-anchor="middle" font-style="italic">image_data_storage</text>
+<path d="M684,168 a70.0,12 0 0 1 140,0 v76 a70.0,12 0 0 1 -140,0 z" fill="#ffedd5" stroke="#ea580c" stroke-width="2"/>
+<ellipse cx="754.0" cy="168" rx="70.0" ry="12" fill="#fed7aa" stroke="#ea580c" stroke-width="2"/>
+<circle cx="684" cy="156" r="13" fill="#ea580c"/>
+<text x="684" y="161" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">5</text>
+<text x="754.0" y="202" font-size="13.5" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">FAISS store</text>
+<text x="754.0" y="219" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">text + image vectors</text>
+<text x="754.0" y="233" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">+ metadata (type)</text>
+<text x="754.0" y="255" font-size="10.5" font-weight="normal" fill="#c2410c" text-anchor="middle" font-style="italic">from_embeddings()</text>
+<line x1="170" y1="206.0" x2="190" y2="206.0" stroke="#111827" stroke-width="2.3" marker-end="url(#ah)"/>
+<line x1="334" y1="192.0" x2="354" y2="146.0" stroke="#111827" stroke-width="2.3" marker-end="url(#ah)"/>
+<line x1="334" y1="220.0" x2="354" y2="266.0" stroke="#111827" stroke-width="2.3" marker-end="url(#ah)"/>
+<line x1="498" y1="146.0" x2="518" y2="146.0" stroke="#111827" stroke-width="2.3" marker-end="url(#ah)"/>
+<line x1="498" y1="258.0" x2="518" y2="258.0" stroke="#111827" stroke-width="2.3" marker-end="url(#ah)"/>
+<line x1="498" y1="284.0" x2="518" y2="368.0" stroke="#111827" stroke-width="2.3" marker-end="url(#ah)"/>
+<line x1="662" y1="146.0" x2="682" y2="192.0" stroke="#111827" stroke-width="2.3" marker-end="url(#ah)"/>
+<line x1="662" y1="266.0" x2="682" y2="220.0" stroke="#111827" stroke-width="2.3" marker-end="url(#ah)"/>
+<rect x="848" y="96" width="140" height="220" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="918.0" y="122" font-size="13" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-style="normal">One model for both</text>
+<text x="918.0" y="144" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">CLIP turns text AND</text>
+<text x="918.0" y="159" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">images into vectors of</text>
+<text x="918.0" y="174" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">the same size, in the</text>
+<text x="918.0" y="189" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">same space.</text>
+<text x="918.0" y="204" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal"></text>
+<text x="918.0" y="219" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">So a text question</text>
+<text x="918.0" y="234" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">can be compared with</text>
+<text x="918.0" y="249" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">an image.</text>
+<rect x="848" y="336" width="140" height="100" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="918.0" y="362" font-size="13" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-style="normal">Why base64?</text>
+<text x="918.0" y="384" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">An LLM that reads</text>
+<text x="918.0" y="399" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">images receives them</text>
+<text x="918.0" y="414" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">as text, so each image</text>
+<text x="918.0" y="429" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">is kept as base64.</text>
+<rect x="10" y="472" width="980" height="180" rx="16" fill="#f4fcf6" stroke="#16a34a" stroke-width="1.5"/>
+<text x="28" y="500" font-size="14" font-weight="bold" fill="#15803d" text-anchor="start" font-style="normal">PART 2 · ANSWERING  (every question)</text>
+<rect x="28" y="520" width="140" height="100" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+<circle cx="28" cy="520" r="13" fill="#16a34a"/>
+<text x="28" y="525" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">6</text>
+<text x="98.0" y="547" font-size="13.5" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">User question</text>
+<text x="98.0" y="567" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">"What share of revenue</text>
+<text x="98.0" y="582" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">came from Nova Agent?"</text>
+<rect x="192" y="520" width="140" height="100" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+<circle cx="192" cy="520" r="13" fill="#16a34a"/>
+<text x="192" y="525" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">7</text>
+<text x="262.0" y="547" font-size="13.5" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">CLIP query vector</text>
+<text x="262.0" y="567" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">same CLIP model as</text>
+<text x="262.0" y="582" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">for the chunks</text>
+<text x="262.0" y="600" font-size="10.5" font-weight="normal" fill="#15803d" text-anchor="middle" font-style="italic">embed_text()</text>
+<rect x="356" y="520" width="140" height="100" rx="10" fill="#ffedd5" stroke="#ea580c" stroke-width="2"/>
+<circle cx="356" cy="520" r="13" fill="#ea580c"/>
+<text x="356" y="525" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">8</text>
+<text x="426.0" y="547" font-size="13.5" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">Search the store</text>
+<text x="426.0" y="567" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">text: top 5 chunks</text>
+<text x="426.0" y="582" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">images: top 2</text>
+<text x="426.0" y="600" font-size="10.5" font-weight="normal" fill="#c2410c" text-anchor="middle" font-style="italic">similarity_search_</text>
+<text x="426.0" y="613" font-size="10.5" font-weight="normal" fill="#c2410c" text-anchor="middle" font-style="italic">by_vector + filter</text>
+<rect x="520" y="520" width="140" height="100" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+<circle cx="520" cy="520" r="13" fill="#16a34a"/>
+<text x="520" y="525" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">9</text>
+<text x="590.0" y="547" font-size="13.5" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">Multimodal message</text>
+<text x="590.0" y="567" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">question + text +</text>
+<text x="590.0" y="582" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">images as base64</text>
+<text x="590.0" y="600" font-size="10.5" font-weight="normal" fill="#15803d" text-anchor="middle" font-style="italic">create_multimodal_</text>
+<text x="590.0" y="613" font-size="10.5" font-weight="normal" fill="#15803d" text-anchor="middle" font-style="italic">message()</text>
+<rect x="684" y="520" width="140" height="100" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+<circle cx="684" cy="520" r="13" fill="#16a34a"/>
+<text x="684" y="525" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">10</text>
+<text x="754.0" y="547" font-size="13.5" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">Gemini LLM</text>
+<text x="754.0" y="567" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">reads text and images</text>
+<text x="754.0" y="582" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">together</text>
+<text x="754.0" y="600" font-size="10.5" font-weight="normal" fill="#15803d" text-anchor="middle" font-style="italic">gemini-2.5-flash-lite</text>
+<rect x="848" y="520" width="140" height="100" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+<circle cx="848" cy="520" r="13" fill="#16a34a"/>
+<text x="848" y="525" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">11</text>
+<text x="918.0" y="547" font-size="13.5" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">Answer</text>
+<text x="918.0" y="567" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">plain text answer</text>
+<text x="918.0" y="582" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">e.g. "34%"</text>
+<line x1="170" y1="570.0" x2="190" y2="570.0" stroke="#111827" stroke-width="2.3" marker-end="url(#ah)"/>
+<line x1="334" y1="570.0" x2="354" y2="570.0" stroke="#111827" stroke-width="2.3" marker-end="url(#ah)"/>
+<line x1="498" y1="570.0" x2="518" y2="570.0" stroke="#111827" stroke-width="2.3" marker-end="url(#ah)"/>
+<line x1="662" y1="570.0" x2="682" y2="570.0" stroke="#111827" stroke-width="2.3" marker-end="url(#ah)"/>
+<line x1="826" y1="570.0" x2="846" y2="570.0" stroke="#111827" stroke-width="2.3" marker-end="url(#ah)"/>
+<path d="M754.0,256 V462 H426.0 V517" fill="none" stroke="#ea580c" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#ah)"/>
+<text x="762.0" y="372" font-size="11" font-weight="normal" fill="#c2410c" text-anchor="start" font-style="normal">stored vectors</text>
+<text x="762.0" y="387" font-size="11" font-weight="normal" fill="#c2410c" text-anchor="start" font-style="normal">are searched</text>
+<line x1="590.0" y1="438" x2="590.0" y2="517" stroke="#6b7280" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#ah)"/>
+<text x="598.0" y="486" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="start" font-style="normal">the found images are</text>
+<text x="598.0" y="501" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="start" font-style="normal">taken from here</text>
+<text x="500.0" y="640" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">Text and images are searched separately: CLIP scores text-to-text higher than text-to-image, so images would never win a shared search.</text>
+<rect x="10" y="672" width="16" height="16" rx="4" fill="#e0e7ff" stroke="#4f46e5" stroke-width="1.5"/>
+<text x="34" y="685" font-size="12" font-weight="normal" fill="#4b5563" text-anchor="start" font-style="normal">Text path</text>
+<rect x="150" y="672" width="16" height="16" rx="4" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
+<text x="174" y="685" font-size="12" font-weight="normal" fill="#4b5563" text-anchor="start" font-style="normal">Image path</text>
+<rect x="300" y="672" width="16" height="16" rx="4" fill="#ffedd5" stroke="#ea580c" stroke-width="1.5"/>
+<text x="324" y="685" font-size="12" font-weight="normal" fill="#4b5563" text-anchor="start" font-style="normal">FAISS: stores and searches both</text>
+<rect x="620" y="672" width="16" height="16" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="644" y="685" font-size="12" font-weight="normal" fill="#4b5563" text-anchor="start" font-style="normal">Question and answer</text>
+</svg>

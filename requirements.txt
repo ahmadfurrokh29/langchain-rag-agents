@@ -25,3 +25,16 @@ faiss-cpu
 pinecone<7
 pinecone-text
 pinecone-notebooks
+#used in multimodel rag project
+pymupdf
+langchain
+langchain-core
+langchain-community
+langchain-text-splitters
+transformers
+torch
+pillow
+numpy
+scikit-learn
+faiss-cpu
+langchain-google-genai

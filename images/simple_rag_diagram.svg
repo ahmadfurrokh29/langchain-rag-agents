@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 625" width="1000" height="625" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#111827"/></marker></defs>
+<rect width="1000" height="625" fill="#ffffff"/>
+<text x="500.0" y="32" font-size="22" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">Simple RAG: how it works, step by step</text>
+<rect x="10" y="50" width="980" height="296" rx="16" fill="#f5f9ff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="28" y="78" font-size="14" font-weight="bold" fill="#1d4ed8" text-anchor="start" font-style="normal">PART 1 · INDEXING  (done once, before any question)</text>
+<rect x="28" y="96" width="140" height="84" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+<circle cx="28" cy="96" r="13" fill="#2563eb"/>
+<text x="28" y="101" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">1</text>
+<text x="98.0" y="130" font-size="14" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">Data sources</text>
+<text x="98.0" y="150" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">PDF, HTML, Excel,</text>
+<text x="98.0" y="165" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">database, text file</text>
+<text x="98.0" y="202" font-size="11" font-weight="normal" fill="#1d4ed8" text-anchor="middle" font-style="italic">Documents we use:</text>
+<text x="98.0" y="217" font-size="11" font-weight="normal" fill="#1d4ed8" text-anchor="middle" font-style="italic">data.txt, website, PDF</text>
+<rect x="192" y="96" width="140" height="84" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+<circle cx="192" cy="96" r="13" fill="#2563eb"/>
+<text x="192" y="101" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">2</text>
+<text x="262.0" y="130" font-size="14" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">Data ingestion</text>
+<text x="262.0" y="150" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">parse the data and</text>
+<text x="262.0" y="165" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">keep content + metadata</text>
+<text x="262.0" y="202" font-size="11" font-weight="normal" fill="#1d4ed8" text-anchor="middle" font-style="italic">TextLoader, WebBaseLoader,</text>
+<text x="262.0" y="217" font-size="11" font-weight="normal" fill="#1d4ed8" text-anchor="middle" font-style="italic">PyPDFLoader -&gt; Documents</text>
+<rect x="356" y="96" width="140" height="84" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+<circle cx="356" cy="96" r="13" fill="#2563eb"/>
+<text x="356" y="101" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">3</text>
+<text x="426.0" y="130" font-size="14" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">Split into chunks</text>
+<text x="426.0" y="150" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">divide the document</text>
+<text x="426.0" y="165" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">into smaller parts</text>
+<text x="426.0" y="202" font-size="11" font-weight="normal" fill="#1d4ed8" text-anchor="middle" font-style="italic">RecursiveCharacter</text>
+<text x="426.0" y="217" font-size="11" font-weight="normal" fill="#1d4ed8" text-anchor="middle" font-style="italic">TextSplitter</text>
+<rect x="520" y="96" width="140" height="84" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+<circle cx="520" cy="96" r="13" fill="#2563eb"/>
+<text x="520" y="101" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">4</text>
+<text x="590.0" y="130" font-size="14" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">Embedding</text>
+<text x="590.0" y="150" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">text -&gt; vector</text>
+<text x="590.0" y="165" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">(384 numbers)</text>
+<text x="590.0" y="202" font-size="11" font-weight="normal" fill="#1d4ed8" text-anchor="middle" font-style="italic">HuggingFaceEmbeddings</text>
+<text x="590.0" y="217" font-size="11" font-weight="normal" fill="#1d4ed8" text-anchor="middle" font-style="italic">all-MiniLM-L6-v2</text>
+<path d="M684,108 a70.0,12 0 0 1 140,0 v60 a70.0,12 0 0 1 -140,0 z" fill="#ffedd5" stroke="#ea580c" stroke-width="2"/>
+<ellipse cx="754.0" cy="108" rx="70.0" ry="12" fill="#fed7aa" stroke="#ea580c" stroke-width="2"/>
+<circle cx="684" cy="96" r="13" fill="#ea580c"/>
+<text x="684" y="101" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">5</text>
+<text x="754.0" y="146" font-size="14" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">Vector database</text>
+<text x="754.0" y="164" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">stores chunk + vector</text>
+<text x="754.0" y="192" font-size="11" font-weight="normal" fill="#c2410c" text-anchor="middle" font-style="italic">Chroma</text>
+<line x1="170" y1="138" x2="190" y2="138" stroke="#111827" stroke-width="2.5" marker-end="url(#ah)"/>
+<line x1="334" y1="138" x2="354" y2="138" stroke="#111827" stroke-width="2.5" marker-end="url(#ah)"/>
+<line x1="498" y1="138" x2="518" y2="138" stroke="#111827" stroke-width="2.5" marker-end="url(#ah)"/>
+<line x1="662" y1="138" x2="682" y2="138" stroke="#111827" stroke-width="2.5" marker-end="url(#ah)"/>
+<rect x="364" y="232" width="27" height="20" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="377.5" y="246" font-size="10" font-weight="normal" fill="#1d4ed8" text-anchor="middle" font-style="normal">c1</text>
+<rect x="395" y="232" width="27" height="20" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="408.5" y="246" font-size="10" font-weight="normal" fill="#1d4ed8" text-anchor="middle" font-style="normal">c2</text>
+<rect x="426" y="232" width="27" height="20" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="439.5" y="246" font-size="10" font-weight="normal" fill="#1d4ed8" text-anchor="middle" font-style="normal">c3</text>
+<rect x="457" y="232" width="27" height="20" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="470.5" y="246" font-size="10" font-weight="normal" fill="#1d4ed8" text-anchor="middle" font-style="normal">c4</text>
+<text x="426.0" y="272" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">chunk_size = 1000</text>
+<text x="426.0" y="287" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">chunk_overlap = 200</text>
+<text x="590.0" y="244" font-size="10.5" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">chunk 1 -&gt; [0.12, -0.50,</text>
+<text x="590.0" y="259" font-size="10.5" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">0.88, ... 384 numbers]</text>
+<text x="590.0" y="280" font-size="10.5" font-weight="normal" fill="#1d4ed8" text-anchor="middle" font-style="italic">same meaning = close vectors</text>
+<rect x="848" y="96" width="140" height="150" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="918.0" y="120" font-size="13" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-style="normal">Why chunks?</text>
+<text x="918.0" y="142" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">An LLM can only read a</text>
+<text x="918.0" y="158" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">fixed amount of text</text>
+<text x="918.0" y="174" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">at once, and small</text>
+<text x="918.0" y="190" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">chunks make the search</text>
+<text x="918.0" y="206" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">more precise.</text>
+<rect x="10" y="366" width="980" height="204" rx="16" fill="#f4fcf6" stroke="#16a34a" stroke-width="1.5"/>
+<text x="28" y="394" font-size="14" font-weight="bold" fill="#15803d" text-anchor="start" font-style="normal">PART 2 · ANSWERING  (every time a user asks a question)</text>
+<rect x="28" y="416" width="140" height="84" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+<circle cx="28" cy="416" r="13" fill="#16a34a"/>
+<text x="28" y="421" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">6</text>
+<text x="98.0" y="450" font-size="14" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">User question</text>
+<text x="98.0" y="470" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">"What are the three</text>
+<text x="98.0" y="485" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">main products?"</text>
+<text x="98.0" y="522" font-size="11" font-weight="normal" fill="#15803d" text-anchor="middle" font-style="italic">the user types a</text>
+<text x="98.0" y="537" font-size="11" font-weight="normal" fill="#15803d" text-anchor="middle" font-style="italic">question</text>
+<rect x="192" y="416" width="140" height="84" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+<circle cx="192" cy="416" r="13" fill="#16a34a"/>
+<text x="192" y="421" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">7</text>
+<text x="262.0" y="450" font-size="14" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">Embed the question</text>
+<text x="262.0" y="470" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">turn it into a vector</text>
+<text x="262.0" y="485" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">with the SAME model</text>
+<text x="262.0" y="522" font-size="11" font-weight="normal" fill="#15803d" text-anchor="middle" font-style="italic">HuggingFaceEmbeddings</text>
+<text x="262.0" y="537" font-size="11" font-weight="normal" fill="#15803d" text-anchor="middle" font-style="italic">all-MiniLM-L6-v2</text>
+<rect x="356" y="416" width="140" height="84" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+<circle cx="356" cy="416" r="13" fill="#16a34a"/>
+<text x="356" y="421" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">8</text>
+<text x="426.0" y="450" font-size="14" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">Similarity search</text>
+<text x="426.0" y="470" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">find the chunks closest</text>
+<text x="426.0" y="485" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">to the question vector</text>
+<text x="426.0" y="522" font-size="11" font-weight="normal" fill="#15803d" text-anchor="middle" font-style="italic">retriever: db.as_retriever()</text>
+<text x="426.0" y="537" font-size="11" font-weight="normal" fill="#15803d" text-anchor="middle" font-style="italic">returns the top 4 chunks</text>
+<rect x="520" y="416" width="140" height="84" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+<circle cx="520" cy="416" r="13" fill="#16a34a"/>
+<text x="520" y="421" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">9</text>
+<text x="590.0" y="450" font-size="14" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">Build the prompt</text>
+<text x="590.0" y="470" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">question + found chunks</text>
+<text x="590.0" y="485" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">as context</text>
+<text x="590.0" y="522" font-size="11" font-weight="normal" fill="#15803d" text-anchor="middle" font-style="italic">PromptTemplate</text>
+<text x="590.0" y="537" font-size="11" font-weight="normal" fill="#15803d" text-anchor="middle" font-style="italic">+ format_docs</text>
+<rect x="684" y="416" width="140" height="84" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+<circle cx="684" cy="416" r="13" fill="#16a34a"/>
+<text x="684" y="421" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">10</text>
+<text x="754.0" y="450" font-size="14" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">LLM</text>
+<text x="754.0" y="470" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">reads the prompt and</text>
+<text x="754.0" y="485" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">writes the answer</text>
+<text x="754.0" y="522" font-size="11" font-weight="normal" fill="#15803d" text-anchor="middle" font-style="italic">ChatOllama</text>
+<text x="754.0" y="537" font-size="11" font-weight="normal" fill="#15803d" text-anchor="middle" font-style="italic">(qwen2.5:3b, local)</text>
+<rect x="848" y="416" width="140" height="84" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+<circle cx="848" cy="416" r="13" fill="#16a34a"/>
+<text x="848" y="421" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle" font-style="normal">11</text>
+<text x="918.0" y="450" font-size="14" font-weight="bold" fill="#111827" text-anchor="middle" font-style="normal">Answer</text>
+<text x="918.0" y="470" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">plain text shown</text>
+<text x="918.0" y="485" font-size="11" font-weight="normal" fill="#4b5563" text-anchor="middle" font-style="normal">to the user</text>
+<text x="918.0" y="522" font-size="11" font-weight="normal" fill="#15803d" text-anchor="middle" font-style="italic">StrOutputParser</text>
+<text x="918.0" y="537" font-size="11" font-weight="normal" fill="#15803d" text-anchor="middle" font-style="italic"></text>
+<line x1="170" y1="458" x2="190" y2="458" stroke="#111827" stroke-width="2.5" marker-end="url(#ah)"/>
+<line x1="334" y1="458" x2="354" y2="458" stroke="#111827" stroke-width="2.5" marker-end="url(#ah)"/>
+<line x1="498" y1="458" x2="518" y2="458" stroke="#111827" stroke-width="2.5" marker-end="url(#ah)"/>
+<line x1="662" y1="458" x2="682" y2="458" stroke="#111827" stroke-width="2.5" marker-end="url(#ah)"/>
+<line x1="826" y1="458" x2="846" y2="458" stroke="#111827" stroke-width="2.5" marker-end="url(#ah)"/>
+<path d="M754.0,204 V356 H426.0 V413" fill="none" stroke="#ea580c" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#ah)"/>
+<text x="762.0" y="300" font-size="11" font-weight="normal" fill="#c2410c" text-anchor="start" font-style="normal">the stored vectors</text>
+<text x="762.0" y="315" font-size="11" font-weight="normal" fill="#c2410c" text-anchor="start" font-style="normal">are searched</text>
+<rect x="10" y="588" width="16" height="16" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+<text x="34" y="601" font-size="12" font-weight="normal" fill="#4b5563" text-anchor="start" font-style="normal">Prepare the knowledge once</text>
+<rect x="250" y="588" width="16" height="16" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="274" y="601" font-size="12" font-weight="normal" fill="#4b5563" text-anchor="start" font-style="normal">Answer every question</text>
+<rect x="450" y="588" width="16" height="16" rx="4" fill="#ffedd5" stroke="#ea580c" stroke-width="1.5"/>
+<text x="474" y="601" font-size="12" font-weight="normal" fill="#4b5563" text-anchor="start" font-style="normal">Shared storage used by both parts</text>
+</svg>
