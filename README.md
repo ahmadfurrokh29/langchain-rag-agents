@@ -191,9 +191,7 @@ A notebook (`.ipynb`) is code split into cells that you run one at a time, with 
 ## RAG (Retrieval-Augmented Generation)
 An LLM does not know your private documents. RAG finds the relevant parts of your documents and gives them to the LLM along with the question, so it answers from real data. The steps are: load, split, embed, store, retrieve, answer.
 
-![Simple RAG diagram: Part 1 indexing (data sources, ingestion, chunks, embedding, vector database) and Part 2 answering (user question, embed question, similarity search, prompt, LLM, answer)](images/simple_rag_diagram.svg)
-
-The diagram has two parts:
+The diagram of this project (see the Projects section above) has two parts:
 - **Part 1, indexing (steps 1 to 5):** done once. The data is loaded and parsed into documents (content plus metadata), split into chunks, turned into vectors by the embedding model, and stored in the vector database.
 - **Part 2, answering (steps 6 to 11):** done for every question. The question is turned into a vector with the **same** embedding model, a similarity search finds the closest chunks in the vector database, the chunks and the question are put into a prompt, the LLM reads the prompt and writes the answer, and the output parser gives plain text back to the user.
 
@@ -241,9 +239,7 @@ A tool is a function the LLM can ask to run. It has a name, a description (the L
 ## Agents
 An agent is an LLM with tools and a loop. It reads the question, picks a tool, reads the tool's result, and repeats until it can answer. With several tools (Wikipedia, arXiv, a retriever), it picks the best source for each question. Tool calling needs a model that supports it, and small models can be unreliable at it.
 
-![Agent with tool calling diagram: Part 1 building the agent (Wikipedia, website docs and arXiv wrappers become tools, a flat tools list, the Ollama LLM and the Hub prompt go into the agent and the AgentExecutor) and Part 2 running it (question, LLM thinks, tool call, tool runs, result goes back in a loop, final answer)](images/agent_tool_calling_diagram.svg)
-
-The diagram has two parts:
+The diagram of this project (see the Projects section above) has two parts:
 - **Part 1, building the agent (steps 1 to 6):** done once. Each source gets a wrapper and is turned into a **tool** with a name and a description: Wikipedia, the website docs (a retriever turned into a tool) and arXiv. The three tools go into one flat list. The local LLM (Qwen via Ollama), the ready-made prompt from LangChain Hub and the tools are combined into an agent with `create_openai_tools_agent`, and `AgentExecutor` runs it.
 - **Part 2, running the agent (steps 7 to 12):** done for every question. The LLM reads the question and the description of every tool, then either picks one tool and the text to search for (a **tool call**) or decides it can answer already. The tool runs, and its result is added to the `agent_scratchpad`. This **loops** until the LLM has enough information, and then it writes the final answer. With `verbose=True` you can watch each step in the notebook output.
 
@@ -281,12 +277,10 @@ A keyword scoring method (an improved TF-IDF). A word gets a higher score when i
 ## Hybrid Search
 Dense and sparse search run together, and their scores are combined. The `alpha` setting picks the balance: `alpha=1` is meaning only, `alpha=0` is keywords only, and `0.5` is an even mix. Use hybrid when questions can contain both ideas and exact terms.
 
-![Hybrid search diagram: Part 1 indexing (documents, chunks, dense encoder and sparse BM25 encoder, two vectors, Pinecone index) and Part 2 searching (question, dense and sparse query vectors, hybrid search, top chunks, prompt and LLM, answer)](images/hybrid_search_diagram.svg)
-
 It is the same idea as Simple RAG, with one difference: **every chunk and every question gets two vectors instead of one**.
 - **Part 1, indexing (steps 1 to 4):** done once. The documents are split into chunks. Each chunk goes through two encoders: the dense one (HuggingFace embeddings, which capture the meaning) and the sparse one (BM25, which scores the exact keywords). Pinecone stores both vectors for every chunk.
 - **Part 2, searching (steps 5 to 8):** done for every question. The question goes through the same two encoders. The hybrid search compares both question vectors with the stored vectors, combines the scores (`dense x alpha + sparse x (1 - alpha)`), and returns the best chunks.
-- **Steps 9 and 10** (prompt, LLM, answer) are the same as in Simple RAG. Our hybrid notebook stops at step 8, so they are drawn with dashed lines.
+- **Steps 9 and 10** (prompt, LLM, answer) are the same as in Simple RAG. Our hybrid notebook stops at step 8, so they are shown with dashed lines in the diagram of project 3 (see the Projects section above).
 
 ## Pinecone
 A cloud vector database. An **index** is one collection of vectors. `ServerlessSpec` sets the cloud and region (here AWS `us-east-1`). The index `dimension` must match the embedding model, and `dotproduct` is required for hybrid search.
@@ -297,9 +291,7 @@ Extra information stored with each chunk, such as its page number or type. In th
 ## Multimodal RAG
 RAG that works with more than one kind of data, here **text and images**. A normal RAG can only answer from text, so it fails on facts that appear only in a chart. A multimodal RAG finds the relevant text *and* the relevant pictures, and gives both to an LLM that can see images.
 
-![Multimodal RAG diagram: Part 1 indexing (PDF, extract text and images with PyMuPDF, split text, open images, CLIP text and image vectors, base64 copy, FAISS store) and Part 2 answering (question, CLIP query vector, search the store, multimodal message, Gemini LLM, answer)](images/multimodal_rag_diagram.svg)
-
-The diagram has two parts:
+The diagram of this project (see the Projects section above) has two parts:
 - **Part 1, indexing (steps 1 to 5):** done once. PyMuPDF pulls the text and the images out of the PDF. The **text path** splits each page into chunks and turns each chunk into a CLIP vector. The **image path** opens each image, turns it into a CLIP vector, and also keeps a base64 copy of it. Both kinds of vectors go into one FAISS store, with metadata that says whether each item is `text` or `image`.
 - **Part 2, answering (steps 6 to 11):** done for every question. The question is turned into a CLIP vector with the same model. The store is searched for the best text chunks and, **separately**, the best images. A multimodal message is built from the question, the text and the base64 images (taken from the base64 copies), and Gemini reads all of it together and writes the answer.
 
